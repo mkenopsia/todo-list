@@ -1,0 +1,32 @@
+.app-header {
+    background-image: linear-gradient(to right, rgb(255, 199, 250) 70%, rgb(79, 178, 239));
+    border-radius: 10px;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+    max-width: 1400px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding: 10px 10px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.app-name {
+    margin: 0;
+    font-size: 20px;
+    color: #000000;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-info {
+    font-size: 14px;
+    color: #000000;
+}

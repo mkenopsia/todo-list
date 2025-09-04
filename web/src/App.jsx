@@ -1,14 +1,23 @@
-import { useState } from "react";
-import TodoList from "./TodoList";
-import "./App.css";
+// src/App.jsx
+import React from 'react';
+import UserHeader from './component/UserHeader/UserHeader';
+import TodoList from './component/TodoList/TodoList';
+import './App.css';
+import { TasksProvider } from './provider/TasksProvider';
+import { ModalProvider } from './provider/ModalProvider';
 
 function App() {
-  const [count, setCount] = useState(0);
-  
   return (
-    <div>
-      <TodoList />
-    </div>
+    <ModalProvider>
+      <TasksProvider>
+        <div className="app-layout">
+          <UserHeader />
+          <main>
+            <TodoList />
+          </main>
+        </div>
+      </TasksProvider>
+    </ModalProvider>
   );
 }
 
