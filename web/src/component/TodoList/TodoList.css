@@ -43,7 +43,6 @@
 }
 
 .task-card {
-    cursor: pointer;
     background: white;
     border: solid;
     border-width: 2px;
