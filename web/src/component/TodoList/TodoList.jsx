@@ -5,16 +5,17 @@ import OverdueTasks from "../OverdueTask/OverdueTask";
 import EditingWindow from "../EditingWindow/EditingWindow";
 import { useTasks } from '../../provider/TasksProvider';
 import { useModal } from '../../provider/ModalProvider';
+import CompletedTasks from "../CompletedTasks/CompletedTasks";
 
 function TodoList() {
-  const { tasks, updateTask, addTask, deleteTask, toggleTaskStatus, getCurrentWeekDates, weekDates, editTask } = useTasks();
-  const { isModalOpen, modalDate, formData, openCreatingModal, closeModal, isSaveMode, openEditingModal } = useModal();
+  const { tasks, weekDates } = useTasks();
+  const { isModalOpen } = useModal();
 
-  // надо чтобы брал из мапы текущую неделю и отрисовывал её
+  // берет из мапы текущую неделю и отрисовывает задачи на неё
   return (
     <div className="weekdays-container">
+      <CompletedTasks/>
       <OverdueTasks />
-      {/* <CompletedTasksContext /> */}
       {weekDates.map((date) =>
         <DateContext key={date} date={date} tasks={tasks} />)}
 

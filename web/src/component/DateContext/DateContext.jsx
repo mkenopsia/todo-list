@@ -4,8 +4,8 @@ import { useModal } from '../../provider/ModalProvider'
 import { useTasks } from '../../provider/TasksProvider';
 
 function DateContext({ date }) {
-    const { isModalOpen, modalDate, formData, openCreatingModal, closeModal, openEditingModal } = useModal();
-    const { tasks, updateTask, addTask, deleteTask, toggleTaskStatus, getCurrentWeekDates, weekDates } = useTasks();
+    const { openCreatingModal, openEditingModal } = useModal();
+    const { tasks, deleteTask, toggleTaskStatus } = useTasks();
 
     return (
         <div key={date} className="day-container">
@@ -21,7 +21,7 @@ function DateContext({ date }) {
                         <div key={task.id} className="task-card">
                             <input type="checkbox"
                                 checked={task.status === 'done'}
-                                className={`task-status${task.status}`}
+                                className={`task-status`}
                                 onChange={() => toggleTaskStatus(date, task)}>
                             </input>
                             <div className="task-details">
@@ -35,7 +35,7 @@ function DateContext({ date }) {
                         </div>
                     ))
                 ) : (
-                    <div className="empty">Нет задач</div>
+                    <div>Нет задач 😪</div>
                 )}
             </div>
 

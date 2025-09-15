@@ -1,9 +1,10 @@
 import { useTasks } from '../../provider/TasksProvider';
 import { useModal } from '../../provider/ModalProvider';
+import './EditingWindow.css'
 
 function EditingWindow() {
-    const { tasks, updateTask, addTask, deleteTask, toggleTaskStatus, getCurrentWeekDates, weekDates, editTask } = useTasks();
-    const { isModalOpen, modalDate, formData, openCreatingModal, closeModal, isSaveMode, openEditingModal } = useModal();
+    const { updateTask, addTask, editTask } = useTasks();
+    const { modalDate, formData, closeModal, isSaveMode } = useModal();
 
     return (
         <div className="modal-overlay" onClick={closeModal}>

@@ -1,4 +1,3 @@
-// TasksContext.jsx
 import { createContext, useContext, useMemo, useState } from 'react';
 import { useModal } from './ModalProvider';
 
@@ -16,15 +15,13 @@ const TasksContext = createContext();
 
 export function useTasks() {
     const context = useContext(TasksContext);
-    if (!context) throw new Error('');
+    if (!context) throw new Error('TasksContext');
     return context;
 }
 
 const STORAGE_KEY = 'user-tasks';
 
 export function TasksProvider({ children }) {
-    const weekDates = getCurrentWeekDates();
-
     const { isModalOpen, modalDate, formData, setFormData, closeModal } = useModal();
 
     function exportTasksAsJson() {
@@ -44,12 +41,12 @@ export function TasksProvider({ children }) {
 
         const jsonString = `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(jsonizedTasks, null, 2))}`;
 
-        const downloadAnchorNode = document.createElement('a');
-        downloadAnchorNode.setAttribute("href", jsonString);
-        downloadAnchorNode.setAttribute("download", `tasks-backup-${new Date().toDateString()}.json`);
-        document.body.appendChild(downloadAnchorNode);
-        downloadAnchorNode.click();
-        document.body.removeChild(downloadAnchorNode);
+        const download = document.createElement('a');
+        download.setAttribute("href", jsonString);
+        download.setAttribute("download", `tasks-backup-${new Date().toDateString()}.json`);
+        document.body.appendChild(download);
+        download.click();
+        document.body.removeChild(download);
     }
 
     function loadTasksFromJson(jsonFile) {
@@ -81,7 +78,7 @@ export function TasksProvider({ children }) {
                 alert('Задачи загружены)');
                 window.location.reload();
             } catch (err) {
-                alert('Не удается загрузить задачи из файла');
+                alert('Не удается загрузить задачи из файла(');
             }
         }
 
@@ -126,24 +123,43 @@ export function TasksProvider({ children }) {
 
             return map;
         } catch (e) {
-            console.error('Failed to parse saved tasks', e);
+            console.error('Чет не парсятся задачи(');
             return null;
         }
     }
 
-    function getCurrentWeekDates() {
-        const today = new Date();
-        const week = [];
+    const [offsetWeeks, setOffsetWeeks] = useState(0);
 
+    const weekDates = useMemo(() => getCurrentWeekDates(offsetWeeks), [offsetWeeks]);
+
+    function incrementOffsetWeeks() {
+        setOffsetWeeks(offsetWeeks + 1);
+        // console.log(offsetWeeks)
+    }
+
+    function decrementOffsetWeeks() {
+        if (offsetWeeks === 0) {
+            return;
+        }
+        setOffsetWeeks(offsetWeeks - 1);
+    }
+
+    function getCurrentWeekDates(offsetWeeks) {
+        const today = new Date();
         const dayOfWeek = today.getDay();
         const mondayOffset = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-        const monday = new Date(today);
-        monday.setDate(today.getDate() - mondayOffset);
 
-        for (let i = today.getDay(); i <= 7; i++) {
-            const day = new Date(today);
+        const monday = new Date(today);
+        monday.setDate(today.getDate() - mondayOffset + offsetWeeks * 7 + 1);
+        monday.setHours(0, 0, 0, 0);
+
+        const week = [];
+        for (let i = 0; i < 7; i++) {
+            const day = new Date(monday);
             day.setDate(monday.getDate() + i);
-            week.push(day.toISOString().split('T')[0]);
+            if(day >= today) {
+                week.push(day.toISOString().split('T')[0]);
+            }
         }
 
         return week;
@@ -152,7 +168,7 @@ export function TasksProvider({ children }) {
     const [tasks, setDailyTasks] = useState(() => {
         const savedTasks = loadTasksFromLocalStorage();
 
-        if (savedTasks) { // добавляем контейнеры для дней текущей недели
+        if (savedTasks) {
             const expandedTasks = new Map(savedTasks);
             weekDates.forEach(date => {
                 if (!expandedTasks.has(date)) {
@@ -261,7 +277,9 @@ export function TasksProvider({ children }) {
             editTask,
             weekDates,
             exportTasksAsJson,
-            loadTasksFromJson
+            loadTasksFromJson,
+            incrementOffsetWeeks,
+            decrementOffsetWeeks
         }}>
             {children}
         </TasksContext.Provider>

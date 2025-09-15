@@ -4,8 +4,8 @@ import { useModal } from '../../provider/ModalProvider'
 import { useTasks } from '../../provider/TasksProvider';
 
 function OverdueTasks() {
-    const { isModalOpen, modalDate, formData, openCreatingModal, closeModal, openEditingModal } = useModal();
-    const { tasks, updateTask, addTask, deleteTask, toggleTaskStatus, getCurrentWeekDates, weekDates } = useTasks();
+    const { openEditingModal } = useModal();
+    const { tasks, deleteTask, toggleTaskStatus } = useTasks();
 
     const overdueTasks = useMemo(() => {
         var allTasks = [];
@@ -16,7 +16,7 @@ function OverdueTasks() {
 
         console.log(allTasks);
 
-        return allTasks.filter(task => { return (new Date(task.date).getTime() < Date.now()) && (task.status === 'active') });
+        return allTasks.filter(task => { return (new Date(task.date) < new Date(new Date().setHours(0, 0, 0, 0))) && (task.status === 'active') });
     }, [tasks]);
 
     if (overdueTasks.length === 0) {
@@ -32,7 +32,7 @@ function OverdueTasks() {
                     <div key={task.id} className="task-card">
                         <input type="checkbox"
                             checked={task.status === 'done'}
-                            className={`task-status${task.status}`}
+                            className={`task-status`}
                             onChange={() => toggleTaskStatus(task.date, task)}>
                         </input>
                         <div className="task-details">

@@ -4,7 +4,7 @@ const ModalContext = createContext();
 
 export function useModal() {
     const context = useContext(ModalContext);
-    if (!context) throw new Error('useTasks must be used within TasksProvider');
+    if (!context) throw new Error('TasksProvider');
     return context;
 }
 
