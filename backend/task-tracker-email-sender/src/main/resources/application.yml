@@ -1,0 +1,30 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: email-sender-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: ru.mkenopsia.tasktrackeremailsender.dto
+#        spring.kafka.consumer.value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  application:
+    name: task-tracker-email-service
+  mail:
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    host: smtp.yandex.ru
+    port: 465
+    protocol: smtps
+    properties:
+      smth:
+        auth: true
+      smtp:
+        starttls:
+          enable: true
+
+EMAIL_SENDING_TOPIC: email-sending-tasks
+
+server:
+  port: 8081

@@ -1,0 +1,217 @@
+@font-face {
+    font-family: 'Minecraft';
+    src: url('../../../fonts/minecraft.ttf') format('truetype');
+}
+
+.weekdays-container {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    /* margin-top: 40px; */
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+}
+
+.day-container {
+    width: 270px;
+    min-height: 680px;
+    border: solid;
+    border-radius: 20px;
+    border-width: 1px;
+    border-color: rgb(188, 9, 9);
+    display: inline;
+    flex-direction: column;
+    padding: 30px;
+    text-align: center;
+    flex: 0 0 auto;
+    background: #fff;
+    box-shadow: 10px 8px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.tasks-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    /* padding: 20px; */
+}
+
+.task-card {
+    background: white;
+    border: solid;
+    border-width: 2px;
+    border-color: #dadada;
+    border-radius: 20px;
+    width: 250px;
+    min-height: 90px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.task-statusactive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 40px;
+    font-weight: bold;
+    color: red;
+}
+
+
+.task-statusdone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 40px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
+.task-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.task-control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-direction: row;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.task-description {
+    justify-content: center;
+    max-width: 300px;
+    resize: none;
+}
+
+.task-description:focus {
+    /* border: solid; */
+    box-shadow: 0 0px 30px rgba(0, 0, 0, 0.1) inset;
+    /* inset: 0 10px 30px rgba(0, 0, 0, 0.3); */
+}
+
+.task-name {
+    max-width: 300px;
+}
+
+.task-name:focus {
+    box-shadow: 0 0px 30px rgba(0, 0, 0, 0.1) inset;
+}
+
+.task-status-selector {
+    max-width: 320px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 14px;
+    color: #555;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.btn-cancel,
+.btn-submit {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-cancel {
+    background: #eee;
+    color: #333;
+}
+
+.btn-cancel:hover {
+    background: #ddd;
+}
+
+.btn-submit {
+    background: #c72c2c;
+    color: white;
+}
+
+.btn-submit:hover {
+    background: #a02323;
+}
+
+.status {
+    font-size: 16px;
+}
+
+.status.active {
+    color: #e74c3c;
+}
+
+.status.done {
+    color: #27ae60;
+}

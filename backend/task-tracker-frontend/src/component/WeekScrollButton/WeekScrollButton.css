@@ -1,0 +1,6 @@
+.scroll-button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 100px;
+    margin-top: 10px;
+}
